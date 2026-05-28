@@ -1,0 +1,152 @@
+{
+  "info": {
+    "name": "EP2 - ms-personal-medico",
+    "description": "Coleccion de pruebas del microservicio de Personal Medico (Especialidades y Medicos). Base: http://localhost:8081",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8081" }
+  ],
+  "item": [
+    {
+      "name": "Especialidades",
+      "item": [
+        {
+          "name": "Crear especialidad (201)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Cardiologia\",\n  \"descripcion\": \"Diagnostico y tratamiento de enfermedades del corazon\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/especialidades", "host": ["{{baseUrl}}"], "path": ["api", "especialidades"] }
+          }
+        },
+        {
+          "name": "Listar especialidades (200)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/api/especialidades", "host": ["{{baseUrl}}"], "path": ["api", "especialidades"] }
+          }
+        },
+        {
+          "name": "Obtener especialidad por id (200)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/api/especialidades/1", "host": ["{{baseUrl}}"], "path": ["api", "especialidades", "1"] }
+          }
+        },
+        {
+          "name": "Actualizar especialidad (200)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Cardiologia\",\n  \"descripcion\": \"Especialidad cardiovascular (actualizada)\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/especialidades/1", "host": ["{{baseUrl}}"], "path": ["api", "especialidades", "1"] }
+          }
+        },
+        {
+          "name": "Eliminar especialidad (204)",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{baseUrl}}/api/especialidades/3", "host": ["{{baseUrl}}"], "path": ["api", "especialidades", "3"] }
+          }
+        },
+        {
+          "name": "ERROR Crear sin nombre (400 validacion)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"descripcion\": \"Sin nombre\"\n}" },
+            "url": { "raw": "{{baseUrl}}/api/especialidades", "host": ["{{baseUrl}}"], "path": ["api", "especialidades"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Medicos",
+      "item": [
+        {
+          "name": "Crear medico (201)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rut\": \"11111111-1\",\n  \"nombre\": \"Ana\",\n  \"apellido\": \"Soto\",\n  \"email\": \"ana.soto@clinica.cl\",\n  \"registroSuperintendencia\": \"SIS-1001\",\n  \"especialidadId\": 1\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/medicos", "host": ["{{baseUrl}}"], "path": ["api", "medicos"] }
+          }
+        },
+        {
+          "name": "Listar medicos (200)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/api/medicos", "host": ["{{baseUrl}}"], "path": ["api", "medicos"] }
+          }
+        },
+        {
+          "name": "Listar medicos por especialidad (200)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/medicos?especialidadId=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "medicos"],
+              "query": [{ "key": "especialidadId", "value": "1" }]
+            }
+          }
+        },
+        {
+          "name": "Obtener medico por id (200)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/api/medicos/1", "host": ["{{baseUrl}}"], "path": ["api", "medicos", "1"] }
+          }
+        },
+        {
+          "name": "Actualizar medico (200)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rut\": \"11111111-1\",\n  \"nombre\": \"Ana Maria\",\n  \"apellido\": \"Soto\",\n  \"email\": \"ana.soto@clinica.cl\",\n  \"registroSuperintendencia\": \"SIS-1001\",\n  \"especialidadId\": 1\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/medicos/1", "host": ["{{baseUrl}}"], "path": ["api", "medicos", "1"] }
+          }
+        },
+        {
+          "name": "Eliminar medico (204)",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{baseUrl}}/api/medicos/2", "host": ["{{baseUrl}}"], "path": ["api", "medicos", "2"] }
+          }
+        },
+        {
+          "name": "ERROR Obtener medico inexistente (404)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/api/medicos/9999", "host": ["{{baseUrl}}"], "path": ["api", "medicos", "9999"] }
+          }
+        },
+        {
+          "name": "ERROR Crear medico email invalido (400)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rut\": \"55555555-5\",\n  \"nombre\": \"Test\",\n  \"apellido\": \"Invalido\",\n  \"email\": \"correo-no-valido\",\n  \"especialidadId\": 1\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/medicos", "host": ["{{baseUrl}}"], "path": ["api", "medicos"] }
+          }
+        }
+      ]
+    }
+  ]
+}
