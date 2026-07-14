@@ -138,3 +138,30 @@ curl http://localhost:8081/api/medicos
 | `main` | Versión estable / entregable (tag `v1.0.0`) |
 | `develop` | Integración de funcionalidades |
 | `feature/*` | Una rama por funcionalidad (entidades, repositorios, servicios, controladores, etc.) |
+
+---
+
+## 🐳 Docker y despliegue cloud (EP3)
+
+El microservicio se contenedoriza con un **Dockerfile multi-stage** (build con
+Maven + Temurin 17, runtime JRE Alpine, usuario no root, `HEALTHCHECK` contra
+`/actuator/health`).
+
+```bash
+# Construir y probar en local (perfil H2, sin MySQL)
+docker build -t ms-personal-medico .
+docker run -d -p 8081:8081 -e SPRING_PROFILES_ACTIVE=h2 ms-personal-medico
+curl http://localhost:8081/actuator/health   # {"status":"UP"}
+```
+
+**Configuración por variables de entorno:** `SERVER_PORT`, `DB_URL`,
+`DB_USERNAME`, `DB_PASSWORD`, `GATEWAY_SECRET`.
+
+**Pipeline CI/CD** (`.github/workflows/ci-cd.yml`): build + tests con reporte
+como artifact → imagen a Docker Hub (tags `latest` y SHA) → despliegue en
+Docker Swarm vía SSH. Secrets: `DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN`,
+`EC2_HOST`, `EC2_USER`, `EC2_SSH_KEY`.
+
+El stack Swarm completo (compose, scripts de clúster, Lambda, API Gateway)
+vive en el repositorio
+[`ep3-infraestructura`](https://github.com/Dioocamp/ep3-infraestructura).
