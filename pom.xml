@@ -63,6 +63,12 @@
             <version>2.6.0</version>
         </dependency>
 
+        <!-- Actuator: endpoint /actuator/health para los health checks de Docker/Swarm -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
         <!-- Testing: JUnit 5 + Mockito + Spring Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
