@@ -7,7 +7,7 @@ Forma parte de la solución de microservicios de la **Evaluación Parcial 2 (JVY
 
 ---
 
-## 🧱 Tecnologías
+## Tecnologías
 
 | Componente | Versión |
 |---|---|
@@ -18,7 +18,7 @@ Forma parte de la solución de microservicios de la **Evaluación Parcial 2 (JVY
 | Build | Maven (con Maven Wrapper `mvnw`) |
 | Documentación API | springdoc-openapi (Swagger UI) |
 
-## 🏗️ Arquitectura en capas
+## Arquitectura en capas
 
 ```
 controller  →  service (interface + impl)  →  repository  →  model (entidades JPA)
@@ -30,40 +30,7 @@ controller  →  service (interface + impl)  →  repository  →  model (entida
 | `Especialidad` | `@OneToMany` → `Medico` |
 | `Medico` | `@ManyToOne` → `Especialidad` (columna FK `especialidad_id`) |
 
----
 
-## ✅ Requisitos previos
-
-- **JDK 17** instalado (`java -version` debe mostrar la versión 17).
-- **MySQL 8** en ejecución en `localhost:3306` con usuario `root` / contraseña `root`
-  *(o usa el perfil **H2** y no necesitas instalar MySQL — ver más abajo).*
-- No necesitas instalar Maven: el proyecto incluye el **Maven Wrapper** (`mvnw` / `mvnw.cmd`).
-
-> El esquema `clinica_personal` se crea automáticamente (`createDatabaseIfNotExist=true`).
-
----
-
-## ▶️ Cómo clonar, instalar y ejecutar
-
-```bash
-# 1) Clonar el repositorio
-git clone <URL-DEL-REPOSITORIO> ms-personal-medico
-cd ms-personal-medico
-
-# 2) Compilar, testear y empaquetar (genera target/ms-personal-medico-1.0.0.jar)
-mvnw.cmd clean package         # Windows
-./mvnw clean package           # Linux / Mac
-
-# 3a) Ejecutar con MySQL (perfil por defecto)
-java -jar target/ms-personal-medico-1.0.0.jar
-#    o, sin empaquetar:
-mvnw.cmd spring-boot:run
-
-# 3b) Ejecutar SIN instalar MySQL, usando H2 en memoria (con datos de ejemplo):
-java -jar target/ms-personal-medico-1.0.0.jar --spring.profiles.active=h2
-#    o:
-mvnw.cmd spring-boot:run "-Dspring-boot.run.profiles=h2"
-```
 
 La aplicación queda disponible en **http://localhost:8081**.
 
@@ -76,7 +43,7 @@ La aplicación queda disponible en **http://localhost:8081**.
 
 ---
 
-## 🔌 Endpoints REST
+## Endpoints REST
 
 Base: `http://localhost:8081`
 
@@ -115,7 +82,6 @@ curl -X POST http://localhost:8081/api/medicos \
 curl http://localhost:8081/api/medicos
 ```
 
-> En la carpeta [`postman/`](postman/) está la colección lista para importar en Postman.
 
 ---
 
